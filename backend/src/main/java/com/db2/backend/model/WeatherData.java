@@ -3,11 +3,13 @@ package com.db2.backend.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "mifiit02_weather_data")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class WeatherData {
     @Id
     @Column(name = "name")
@@ -28,16 +30,13 @@ public class WeatherData {
     private long dt;
 
     @Column(name = "median_temp")
-    private Double median_temp;
+    private Double medianTemp;
 
-    public WeatherData(String name, double temp, double tempMin, double tempMax, 
-                      double feelsLike, long dt, Double median_temp) {
-        this.name = name;
-        this.temp = temp;
-        this.tempMin = tempMin;
-        this.tempMax = tempMax;
-        this.feelsLike = feelsLike;
-        this.dt = dt;
-        this.median_temp = median_temp;
+    public Double getMedianTemp() {
+        return medianTemp;
+    }
+
+    public void setMedianTemp(Double medianTemp) {
+        this.medianTemp = medianTemp;
     }
 }

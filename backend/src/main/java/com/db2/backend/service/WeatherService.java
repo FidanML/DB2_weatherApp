@@ -66,8 +66,12 @@ public class WeatherService {
 
             WeatherData weatherData = new WeatherData();
             updateWeatherDataFromResponse(weatherData, weatherResponse);
+            
             logger.info("Saving weather data for city: {}", cityName);
-            return weatherRepository.save(weatherData);
+            weatherRepository.save(weatherData);
+            
+            logger.info("Fetching saved weather data for city: {}", cityName);
+            return weatherRepository.findByName(cityName);
 
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {

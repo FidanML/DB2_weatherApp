@@ -21,12 +21,8 @@ public class WeatherController {
 
     @GetMapping("/{cityName}")
     public ResponseEntity<WeatherData> getWeatherByCity(@PathVariable String cityName) {
-        weatherService.getWeatherDataByCity(cityName);
-        WeatherData cityData = weatherRepository.findByName(cityName);
-        if (cityData == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cityData);
+        WeatherData weatherData = weatherService.getWeatherDataByCity(cityName);
+        return ResponseEntity.ok(weatherData);
     }
 
     @GetMapping("/cities")

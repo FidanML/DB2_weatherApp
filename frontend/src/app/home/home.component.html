@@ -1,0 +1,68 @@
+<div class="home-container">
+  <h1>Weather App</h1>
+  <p>Welcome to the Weather Application</p>
+  <div class="content">
+    <form (ngSubmit)="onSubmit()" class="search-form">
+      <div class="search-container">
+        <input 
+          type="text" 
+          [(ngModel)]="cityName" 
+          (input)="onInputChange()"
+          (focus)="showSuggestions = true"
+          name="cityName"
+          placeholder="Enter city name"
+          class="city-input"
+        >
+        <div class="suggestions-list" *ngIf="showSuggestions && filteredCities.length > 0">
+          <div 
+            *ngFor="let city of filteredCities" 
+            (click)="selectCity(city)"
+            class="suggestion-item">
+            {{ city }}
+          </div>
+        </div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
+    
+    <div class="weather-info" *ngIf="weatherData">
+      <h2>{{ weatherData.name }}</h2>
+      <div class="weather-details">
+        <div class="detail-item">
+          <span class="label">Current Temperature:</span>
+          <span class="value" [ngClass]="{
+            'temp-cold': weatherData.temp < 10,
+            'temp-mild': weatherData.temp >= 10 && weatherData.temp < 20,
+            'temp-warm': weatherData.temp >= 20 && weatherData.temp < 30,
+            'temp-hot': weatherData.temp >= 30
+          }">{{ weatherData.temp }}°C</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Feels Like:</span>
+          <span class="value" [ngClass]="{
+            'temp-cold': weatherData.feelsLike < 10,
+            'temp-mild': weatherData.feelsLike >= 10 && weatherData.feelsLike < 20,
+            'temp-warm': weatherData.feelsLike >= 20 && weatherData.feelsLike < 30,
+            'temp-hot': weatherData.feelsLike >= 30
+          }">{{ weatherData.feelsLike }}°C</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Min Temperature:</span>
+          <span class="value">{{ weatherData.tempMin }}°C</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Max Temperature:</span>
+          <span class="value">{{ weatherData.tempMax }}°C</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Median Temperature:</span>
+          <span class="value">{{ weatherData.median_temp }}°C</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Last Updated:</span>
+          <span class="value">{{ weatherData.dt * 1000 | date:'MMM d, y, HH:mm:ss' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
